@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #7b8586;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: #9043FF;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #5c6c6f;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-text {
+  background: linear-gradient(270deg, #F02CA0, #9043FF, #9043FF, #F02CA0);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 4s ease infinite;
+}
+
+.btn-fill-center {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border: 2px solid #171717;
+  color: #171717;
+  background: transparent;
+  transition: color 0.4s ease;
+}
+
+.dark .btn-fill-center {
+  border-color: white;
+  color: white;
+}
+
+.btn-fill-center::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: #171717;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+  z-index: -1;
+}
+
+.dark .btn-fill-center::before {
+  background: white;
+}
+
+.btn-fill-center:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+.btn-fill-center:hover {
+  color: white;
+}
+
+.dark .btn-fill-center:hover {
+  color: #0a0a0a;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
