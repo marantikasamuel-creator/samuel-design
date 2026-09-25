@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import InteractiveGridBackground from './component/InteractiveGridBackground';
+import WaterWaveBackground from './component/WaterWaveBackground';
+import BubbleParticles from './component/BubbleParticles';
+import HeroClouds from './component/HeroClouds';
 type IconProps = React.SVGProps<SVGSVGElement> & { size?: number };
 
 const createIcon = (symbol: string) => ({ size = 24, ...props }: IconProps) => (
@@ -11,9 +13,6 @@ const createIcon = (symbol: string) => ({ size = 24, ...props }: IconProps) => (
   </svg>
 );
 
-const Sun = createIcon('☀');
-const Moon = createIcon('☾');
-const ExternalLink = createIcon('↗');
 const X = ({ size = 24, className = '', ...props }: IconProps & { className?: string }) => (
   <svg {...props} width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
     <line x1="19" y1="19" x2="5" y2="5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
@@ -30,7 +29,6 @@ const Linkedin = ({ size = 24, className = '', ...props }: IconProps & { classNa
     <path d="M144,7339 L140,7339 L140,7332.001 C140,7330.081 139.153,7329.01 137.634,7329.01 C135.981,7329.01 135,7330.126 135,7332.001 L135,7339 L131,7339 L131,7326 L135,7326 L135,7327.462 C135,7327.462 136.255,7325.26 139.083,7325.26 C141.912,7325.26 144,7326.986 144,7330.558 L144,7339 L144,7339 Z M126.442,7323.921 C125.093,7323.921 124,7322.819 124,7321.46 C124,7320.102 125.093,7319 126.442,7319 C127.79,7319 128.883,7320.102 128.883,7321.46 C128.884,7322.819 127.79,7323.921 126.442,7323.921 L126.442,7323.921 Z M124,7339 L129,7339 L129,7326 L124,7326 L124,7339 Z" transform="translate(-124.000000, -7319.000000)" />
   </svg>
 );
-const Send = createIcon('➤');
 const CheckCircle2 = createIcon('✓');
 const Menu = createIcon('☰');
 const Sparkles = ({ size = 24, className = '', ...props }: IconProps & { className?: string }) => (
@@ -47,8 +45,6 @@ const Layers = ({ size = 24, className = '', ...props }: IconProps & { className
     <path d="M4 6L20 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
   </svg>
 );
-const Twitter = createIcon('tw');
-const Figma = createIcon('fig');
 
 const Mail = ({ size = 24, className = '', ...props }: IconProps & { className?: string }) => (
   <svg {...props} width={size} height={size} viewBox="0 -4 32 32" className={className} fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -80,6 +76,38 @@ const Instagram = ({ size = 24, className = '', ...props }: IconProps & { classN
     <path fillRule="evenodd" clipRule="evenodd" d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" />
     <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z" />
     <path fillRule="evenodd" clipRule="evenodd" d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z" />
+  </svg>
+);
+
+const Palette = ({ size = 24, className = '', ...props }: IconProps & { className?: string }) => (
+  <svg {...props} width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+  </svg>
+);
+
+const Globe = ({ size = 24, className = '', ...props }: IconProps & { className?: string }) => (
+  <svg {...props} width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <line x1="2" y1="12" x2="22" y2="12" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+  </svg>
+);
+
+const Camera = ({ size = 24, className = '', ...props }: IconProps & { className?: string }) => (
+  <svg {...props} width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+    <circle cx="12" cy="13" r="3" />
+  </svg>
+);
+
+const Video = ({ size = 24, className = '', ...props }: IconProps & { className?: string }) => (
+  <svg {...props} width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M23 7l-7 5 7 5V7z" />
+    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
   </svg>
 );
 
@@ -195,8 +223,127 @@ const SKILLS = [
   'Figma', 'Photoshop', 'Canva', 'Affinity Suite', 'CapCut'
 ];
 
+const DECRYPT_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';
+
+function DecryptedText({ text }: { text: string }) {
+  const [displayText, setDisplayText] = useState(() => text.replace(/\S/g, '•'));
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let frame = 0;
+    let intervalId: ReturnType<typeof setInterval> | undefined;
+    const startTimeout = window.setTimeout(() => {
+      if (prefersReducedMotion) {
+        setDisplayText(text);
+        return;
+      }
+
+      intervalId = setInterval(() => {
+        const revealedCount = Math.floor(frame / 3);
+
+        setDisplayText(
+          Array.from(text, (character, index) => {
+            if (character === ' ' || index < revealedCount) return character;
+            return DECRYPT_CHARACTERS[Math.floor(Math.random() * DECRYPT_CHARACTERS.length)];
+          }).join('')
+        );
+
+        frame += 1;
+        if (revealedCount >= text.length) {
+          if (intervalId) clearInterval(intervalId);
+          setDisplayText(text);
+        }
+      }, 45);
+    }, prefersReducedMotion ? 0 : 250);
+
+    return () => {
+      window.clearTimeout(startTimeout);
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [text]);
+
+  return (
+    <motion.span
+      initial={{ opacity: 0.35, filter: 'blur(3px)' }}
+      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      transition={{ duration: 1.1, ease: 'easeOut' }}
+      className="relative inline-block"
+      aria-label={text}
+    >
+      <span className="invisible" aria-hidden="true">{text}</span>
+      <span className="absolute inset-0 whitespace-nowrap" aria-hidden="true">{displayText}</span>
+    </motion.span>
+  );
+}
+
+function ClickSparks() {
+  const [sparks, setSparks] = useState<{ id: number; x: number; y: number }[]>([]);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const newSpark = { id: Date.now(), x: e.clientX, y: e.clientY };
+      setSparks((prev) => [...prev, newSpark]);
+
+      setTimeout(() => {
+        setSparks((prev) => prev.filter((s) => s.id !== newSpark.id));
+      }, 700);
+    };
+
+    window.addEventListener('click', handleClick);
+    return () => window.removeEventListener('click', handleClick);
+  }, []);
+
+  return (
+    <div className="pointer-events-none fixed inset-0 z-[99999] overflow-hidden">
+      {sparks.map((spark) => (
+        <SparkExplosion key={spark.id} x={spark.x} y={spark.y} />
+      ))}
+    </div>
+  );
+}
+
+function SparkExplosion({ x, y }: { x: number; y: number }) {
+  const numSparks = 8;
+  const colors = ['#0b5ed7', '#63b3ff', '#2f86eb', '#ffffff'];
+
+  return (
+    <div style={{ left: x, top: y }} className="absolute">
+      {Array.from({ length: numSparks }).map((_, i) => {
+        const angle = (i * 360) / numSparks + (Math.random() * 20 - 10);
+        const distance = 30 + Math.random() * 50;
+        const radian = (angle * Math.PI) / 180;
+        const targetX = Math.cos(radian) * distance;
+        const targetY = Math.sin(radian) * distance;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        return (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              backgroundColor: color,
+              boxShadow: `0 0 10px 1px ${color}`,
+              width: 5 + Math.random() * 3,
+              height: 5 + Math.random() * 3,
+              marginLeft: -3,
+              marginTop: -3,
+            }}
+            initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+            animate={{
+              opacity: 0,
+              x: targetX,
+              y: targetY,
+              scale: 0
+            }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 export default function App() {
-  const [darkMode, setDarkMode] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -206,15 +353,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<string>('');
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
-
-  useEffect(() => {
-    const sections = ['work', 'about', 'contact'];
+    const sections = ['services', 'work', 'about', 'contact'];
     const observers: IntersectionObserver[] = [];
     sections.forEach((id) => {
       const el = document.getElementById(id);
@@ -230,6 +369,7 @@ export default function App() {
   }, []);
 
   const navLinks = [
+    { href: '#services', label: 'Layanan', id: 'services' },
     { href: '#work', label: 'Karya', id: 'work' },
     { href: '#about', label: 'Tentang Saya', id: 'about' },
     { href: '#contact', label: 'Kontak', id: 'contact' },
@@ -244,23 +384,14 @@ export default function App() {
     : PROJECTS.filter(p => p.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors duration-300 font-sans selection:bg-neutral-900 dark:selection:bg-white selection:text-white dark:selection:text-neutral-900">
-
-      {/* --- INTERACTIVE GRID BACKGROUND --- */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <InteractiveGridBackground
-          cellSize={60}
-          baseLineWidth={0.5}
-          hoverLineWidth={2.5}
-          hoverRadius={220}
-        />
-      </div>
+    <div className="min-h-screen overflow-x-hidden bg-white text-[#0b5ed7] font-sans selection:bg-[#0b5ed7] selection:text-white">
+      <ClickSparks />
 
       {/* --- NAVBAR --- */}
-      <nav className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-neutral-50/80 dark:bg-neutral-950/80 border-b border-neutral-200/60 dark:border-neutral-800/60 transition-colors">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-white border-b border-[#0b5ed7]/15 transition-colors">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <a href="#" className="text-2xl font-black tracking-tighter hover:opacity-80 transition-opacity">
-            SAMUEL<span className="text-neutral-900 dark:text-white">.</span>
+            SAMUEL<span className="text-[#63b3ff]">.</span>
           </a>
 
           {/* Desktop Nav */}
@@ -271,13 +402,13 @@ export default function App() {
                 href={link.href}
                 onMouseEnter={() => setHoveredNav(link.id)}
                 onMouseLeave={() => setHoveredNav(null)}
-                className={`relative py-1 transition-colors ${navIndicator === link.id ? 'text-neutral-900 dark:text-white' : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'}`}
+                className={`relative py-1 transition-colors ${navIndicator === link.id ? 'text-[#0b5ed7]' : 'text-[#0b5ed7]/60 hover:text-[#0b5ed7]'}`}
               >
                 {link.label}
                 {navIndicator === link.id && (
                   <motion.span
                     layoutId="nav-underline"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-white rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#0b5ed7] rounded-full"
                     transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
@@ -292,7 +423,7 @@ export default function App() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-neutral-800 dark:text-neutral-200"
+              className="p-2 text-[#0b5ed7]"
             >
               <Menu size={24} />
             </button>
@@ -301,17 +432,17 @@ export default function App() {
 
         {/* Mobile Nav Links */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 space-y-3 bg-neutral-50 dark:bg-neutral-950">
+          <div className="relative z-10 md:hidden border-b border-[#0b5ed7]/15 px-6 py-4 space-y-3 bg-white">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block py-1 font-medium transition-colors ${activeSection === link.id ? 'text-neutral-900 dark:text-white' : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'}`}
+                className={`block py-1 font-medium transition-colors ${activeSection === link.id ? 'text-[#0b5ed7]' : 'text-[#0b5ed7]/60 hover:text-[#0b5ed7]'}`}
               >
                 {link.label}
                 {activeSection === link.id && (
-                  <span className="block h-0.5 w-6 bg-neutral-900 dark:bg-white rounded-full mt-0.5" />
+                  <span className="block h-0.5 w-6 bg-[#0b5ed7] rounded-full mt-0.5" />
                 )}
               </a>
             ))}
@@ -319,395 +450,493 @@ export default function App() {
         )}
       </nav>
 
-      {/* --- HERO SECTION --- */}
-      <section className="relative z-10 pt-36 pb-20 md:pt-48 md:pb-32 px-6 max-w-7xl mx-auto flex flex-col justify-center min-h-[85vh]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl"
-        >
-          <span className="inline-flex items-center gap-2 text-xs md:text-sm font-semibold tracking-wider uppercase text-neutral-500 dark:text-neutral-400 mb-6 border border-neutral-300 dark:border-neutral-800 rounded-full px-4 py-1.5 backdrop-blur-sm">
-            <Sparkles size={60} className="text-neutral-900 dark:text-white w-5 h-5 md:w-6 md:h-6" /> Graphic Designer · Video Editor · Photographer
-          </span>
-
-          <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[1.05] mb-8">
-            <span className="inline-flex overflow-hidden">
-              {Array.from('Be better').map((char, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ y: '-120%', opacity: 0 }}
-                  animate={{
-                    y: ['-120%', '10%', '-30%', '5%', '-8%', '0%'],
-                    opacity: [0, 1, 1, 1, 1, 1],
-                  }}
-                  transition={{
-                    duration: 1.2,
-                    delay: i * 0.08,
-                    times: [0, 0.35, 0.55, 0.72, 0.87, 1],
-                    ease: 'easeOut',
-                    repeat: Infinity,
-                    repeatDelay: 4,
-                  }}
-                  className={char === ' ' ? 'inline-block w-[0.3em]' : 'inline-block'}
-                >
-                  {char === ' ' ? '\u00A0' : char}
-                </motion.span>
-              ))}
+      {/* --- BLUE HALF OF HERO --- */}
+      <section className="hero-light relative z-10 h-[50vh] min-h-[400px] overflow-hidden bg-gradient-to-b from-[#0b5ed7] via-[#2f86eb] to-[#63b3ff]">
+        {/* Awan tipis yang bergerak searah gelombang air di bawahnya */}
+        <HeroClouds />
+        <div className="relative z-10 h-full flex flex-col justify-end px-6 pt-28 md:pt-36 pb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-7xl mx-auto w-full"
+          >
+            <span className="inline-flex items-center gap-2 text-xs md:text-sm font-semibold tracking-wider uppercase text-white/90 mb-6 border border-white/40 bg-white/10 rounded-full px-4 py-1.5 backdrop-blur-sm">
+              <Sparkles size={60} className="text-white w-5 h-5 md:w-6 md:h-6" /> Graphic Designer · Video Editor · Photographer
             </span>
-            {' '}<br className="hidden md:block" />
-            <span className="animated-gradient-text">
-              Be creative.
-            </span>
-          </h1>
 
-          <p className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-400 max-w-2xl font-light leading-relaxed mb-10">
-            Halo, saya <span className="font-semibold text-neutral-900 dark:text-neutral-100">Samuel Arga Sefta Marantika</span>. Mahasiswa Kajian Film semester 3 yang juga aktif sebagai freelancer di bidang desain grafis, video editing, dan fotografi—mengerjakan proyek untuk acara, bisnis, organisasi, hingga film pendek.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4">
-            <a
-              href="#work"
-              className="btn-fill-center px-8 py-4 font-semibold rounded-full flex items-center gap-2 group shadow-lg"
-            >
-              Lihat Portofolio
-              <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
-            <a
-              href="#contact"
-              className="btn-fill-center px-8 py-4 font-semibold rounded-full"
-            >
-              Diskusi Proyek
-            </a>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* --- PORTFOLIO GALLERY SECTION --- */}
-      <section id="work" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
-        >
-          <div>
-            <h2 className="text-xs uppercase font-bold tracking-widest text-neutral-900 dark:text-white mb-2">Portofolio Pilihan</h2>
-            <p className="text-3xl md:text-5xl font-black tracking-tight">Karya Terkini.</p>
-          </div>
-
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === category
-                  ? 'bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 shadow-md'
-                  : 'bg-neutral-200/60 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-300 dark:hover:bg-neutral-800'
-                  }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Masonry / Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{
-                  layout: { type: 'spring', stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.25, ease: 'easeInOut' },
-                  scale: { duration: 0.25, ease: 'easeInOut' },
-                }}
-                key={project.id}
-                onClick={() => setActiveProject(project)}
-                className="group relative cursor-pointer rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800/80 transition-[box-shadow] duration-500 ease-out hover:shadow-[0_0_35px_6px_rgba(255,255,255,0.25)]"
-              >
-                {/* Lazy Loaded Image Container */}
-                <div className="aspect-[4/3] overflow-hidden bg-neutral-200 dark:bg-neutral-800">
-                  <img
-                    src={project.thumbnail}
-                    alt={project.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
-                  />
-                </div>
-
-                {/* Card Content Overlay / Bottom info */}
-                <div className="p-6 flex flex-col justify-between">
-                  <div>
-                    <span className="text-xs font-semibold text-neutral-900 dark:text-white uppercase tracking-wider">
-                      {project.category}
-                    </span>
-                    <h3 className="text-xl font-bold mt-1 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors flex items-center justify-between">
-                      {project.title}
-                      <ArrowUpRight size={18} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-neutral-900 dark:text-white" />
-                    </h3>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2 line-clamp-2">
-                      {project.shortDesc}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+            <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[1.05] text-white">
+              <DecryptedText text="Be better" />
+              {' '}<br className="hidden md:block" />
+              <span className="animated-gradient-text-light">
+                Be creative.
+              </span>
+            </h1>
+          </motion.div>
         </div>
       </section>
 
-      {/* --- PROJECT DETAIL MODAL --- */}
-      <AnimatePresence>
-        {activeProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10 bg-black/70 backdrop-blur-md overflow-y-auto"
-            onClick={() => setActiveProject(null)}
-          >
-            <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              onClick={(e: { stopPropagation: () => any; }) => e.stopPropagation()}
-              className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col my-auto"
-            >
-              {/* Modal Header */}
-              <div className="p-6 md:p-8 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between sticky top-0 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md z-10">
-                <div>
-                  <span className="text-xs font-bold text-neutral-900 dark:text-white uppercase tracking-wider">{activeProject.category}</span>
-                  <h3 className="text-2xl md:text-3xl font-extrabold">{activeProject.title}</h3>
-                </div>
-                <button
-                  onClick={() => setActiveProject(null)}
-                  className="p-3 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-                >
-                  <X size={20} />
-                </button>
-              </div>
+      {/* One uninterrupted white area and bubble field from hero to footer */}
+      <div className="relative bg-white">
+        <BubbleParticles count={48} style={{ zIndex: 20 }} />
 
-              {/* Modal Body */}
-              <div className="p-6 md:p-8 overflow-y-auto space-y-8">
-                {/* Meta details */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-800/60 text-sm">
-                  <div>
-                    <p className="text-neutral-500 dark:text-neutral-400 text-xs uppercase font-medium">Klien</p>
-                    <p className="font-semibold mt-1">{activeProject.client}</p>
+        {/* --- WHITE HALF OF HERO --- */}
+        <section className="hero-light relative z-10 h-[50vh] min-h-[400px] flex flex-col justify-start px-6 pt-14 pb-16 md:pb-20">
+          <WaterWaveBackground />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="relative z-30 max-w-7xl mx-auto w-full"
+          >
+            <p className="text-lg md:text-2xl text-[#0b5ed7]/80 max-w-2xl font-light leading-relaxed mb-10">
+              Halo, saya <span className="font-semibold text-[#0b5ed7]">Samuel Arga Sefta Marantika</span>. Mahasiswa Kajian Film semester 3 yang juga aktif sebagai freelancer di bidang desain grafis, video editing, dan fotografi—mengerjakan proyek untuk acara, bisnis, organisasi, hingga film pendek.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href="#work"
+                className="btn-fill-center px-8 py-4 font-semibold rounded-full flex items-center gap-2 group shadow-lg"
+              >
+                Lihat Portofolio
+                <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+              <a
+                href="#contact"
+                className="btn-fill-center px-8 py-4 font-semibold rounded-full"
+              >
+                Diskusi Proyek
+              </a>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* --- SERVICES SECTION --- */}
+        <section id="services" className="relative z-30 py-24 px-6 max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="text-center mb-16"
+          >
+            <p className="text-3xl md:text-5xl font-black tracking-tight">My Service</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Card 1: Graphic Design */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="group flex flex-col items-center text-center p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="mb-6 text-[#0b5ed7]">
+                <Palette size={48} strokeWidth={1.5} />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Graphic Design</h3>
+              <p className="text-sm text-[#0b5ed7]/70 mb-8 leading-relaxed">
+                Desain visual yang menarik untuk kebutuhan branding, promosi, dan media sosial Anda.
+              </p>
+              <a href="#contact" className="text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
+                View details <ArrowUpRight size={16} />
+              </a>
+            </motion.div>
+
+            {/* Card 2: Web Design */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="group flex flex-col items-center text-center p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="mb-6 text-[#0b5ed7]">
+                <Globe size={48} strokeWidth={1.5} />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Web Design</h3>
+              <p className="text-sm text-[#0b5ed7]/70 mb-8 leading-relaxed">
+                Menciptakan antarmuka website yang estetis, responsif, dan mudah digunakan.
+              </p>
+              <a href="#contact" className="text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
+                View details <ArrowUpRight size={16} />
+              </a>
+            </motion.div>
+
+            {/* Card 3: Photography */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="group flex flex-col items-center text-center p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="mb-6 text-[#0b5ed7]">
+                <Camera size={48} strokeWidth={1.5} />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Photography</h3>
+              <p className="text-sm text-[#0b5ed7]/70 mb-8 leading-relaxed">
+                Menangkap momen terbaik dengan kualitas visual yang tajam dan bercerita.
+              </p>
+              <a href="#contact" className="text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
+                View details <ArrowUpRight size={16} />
+              </a>
+            </motion.div>
+
+            {/* Card 4: Video Editing */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="group flex flex-col items-center text-center p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="mb-6 text-[#0b5ed7]">
+                <Video size={48} strokeWidth={1.5} />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Video Editing</h3>
+              <p className="text-sm text-[#0b5ed7]/70 mb-8 leading-relaxed">
+                Menyusun dan mengolah video menjadi cerita yang menarik dan profesional.
+              </p>
+              <a href="#contact" className="text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
+                View details <ArrowUpRight size={16} />
+              </a>
+            </motion.div>
+
+          </div>
+        </section>
+
+        {/* --- PORTFOLIO GALLERY SECTION --- */}
+        <section id="work" className="relative z-30 py-24 px-6 max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
+          >
+            <div>
+              <h2 className="text-xs uppercase font-bold tracking-widest text-[#0b5ed7] mb-2">Portofolio Pilihan</h2>
+              <p className="text-3xl md:text-5xl font-black tracking-tight">Karya Terkini.</p>
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === category
+                    ? 'bg-[#0b5ed7] text-white shadow-md'
+                    : 'bg-[#0b5ed7]/10 text-[#0b5ed7]/70 hover:bg-[#0b5ed7]/20'
+                    }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Masonry / Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project) => (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{
+                    layout: { type: 'spring', stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.25, ease: 'easeInOut' },
+                    scale: { duration: 0.25, ease: 'easeInOut' },
+                  }}
+                  key={project.id}
+                  onClick={() => setActiveProject(project)}
+                  className="group relative cursor-pointer rounded-2xl overflow-hidden bg-white border border-[#0b5ed7]/20 transition-[box-shadow] duration-500 ease-out hover:shadow-[0_0_35px_6px_rgba(11,94,215,0.25)]"
+                >
+                  {/* Lazy Loaded Image Container */}
+                  <div className="aspect-[4/3] overflow-hidden bg-[#0b5ed7]/5">
+                    <img
+                      src={project.thumbnail}
+                      alt={project.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
                   </div>
-                  <div>
-                    <p className="text-neutral-500 dark:text-neutral-400 text-xs uppercase font-medium">Tahun</p>
-                    <p className="font-semibold mt-1">{activeProject.year}</p>
-                  </div>
-                  <div className="col-span-2 md:col-span-1">
-                    <p className="text-neutral-500 dark:text-neutral-400 text-xs uppercase font-medium">Tools</p>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {activeProject.tools.map(t => (
-                        <span key={t} className="px-2 py-0.5 bg-neutral-200 dark:bg-neutral-800 text-xs rounded-md font-medium">
-                          {t}
-                        </span>
-                      ))}
+
+                  {/* Card Content Overlay / Bottom info */}
+                  <div className="p-6 flex flex-col justify-between">
+                    <div>
+                      <span className="text-xs font-semibold text-[#0b5ed7] uppercase tracking-wider">
+                        {project.category}
+                      </span>
+                      <h3 className="text-xl font-bold mt-1 group-hover:text-[#2f86eb] transition-colors flex items-center justify-between">
+                        {project.title}
+                        <ArrowUpRight size={18} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-[#0b5ed7]" />
+                      </h3>
+                      <p className="text-sm text-[#0b5ed7]/70 mt-2 line-clamp-2">
+                        {project.shortDesc}
+                      </p>
                     </div>
                   </div>
+
+                  {/* Kilau melintang (lihat .card-glare di globals.css): menyapu seluruh area card hanya saat card ini di-hover, lalu langsung reset tanpa sapuan balik saat kursor pergi */}
+                  <span aria-hidden="true" className="card-glare" />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </section>
+
+        {/* --- PROJECT DETAIL MODAL --- */}
+        <AnimatePresence>
+          {activeProject && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10 bg-black/70 backdrop-blur-md overflow-y-auto"
+              onClick={() => setActiveProject(null)}
+            >
+              <motion.div
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 50, opacity: 0 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                onClick={(e: { stopPropagation: () => any; }) => e.stopPropagation()}
+                className="bg-white border border-[#0b5ed7]/20 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col my-auto"
+              >
+                {/* Modal Header */}
+                <div className="p-6 md:p-8 border-b border-[#0b5ed7]/15 flex items-center justify-between sticky top-0 bg-white/90 backdrop-blur-md z-10">
+                  <div>
+                    <span className="text-xs font-bold text-[#0b5ed7] uppercase tracking-wider">{activeProject.category}</span>
+                    <h3 className="text-2xl md:text-3xl font-extrabold">{activeProject.title}</h3>
+                  </div>
+                  <button
+                    onClick={() => setActiveProject(null)}
+                    className="p-3 rounded-full hover:bg-[#0b5ed7]/10 transition-colors"
+                  >
+                    <X size={20} />
+                  </button>
                 </div>
 
-                {/* Description */}
-                <div>
-                  <h4 className="text-lg font-bold mb-2">Tentang Proyek</h4>
-                  <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                    {activeProject.fullDesc}
-                  </p>
-                </div>
+                {/* Modal Body */}
+                <div className="p-6 md:p-8 overflow-y-auto space-y-8">
+                  {/* Meta details */}
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 rounded-xl bg-[#0b5ed7]/5 border border-[#0b5ed7]/15 text-sm">
+                    <div>
+                      <p className="text-[#0b5ed7]/60 text-xs uppercase font-medium">Klien</p>
+                      <p className="font-semibold mt-1">{activeProject.client}</p>
+                    </div>
+                    <div>
+                      <p className="text-[#0b5ed7]/60 text-xs uppercase font-medium">Tahun</p>
+                      <p className="font-semibold mt-1">{activeProject.year}</p>
+                    </div>
+                    <div className="col-span-2 md:col-span-1">
+                      <p className="text-[#0b5ed7]/60 text-xs uppercase font-medium">Tools</p>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {activeProject.tools.map(t => (
+                          <span key={t} className="px-2 py-0.5 bg-[#0b5ed7]/10 text-[#0b5ed7] text-xs rounded-md font-medium">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
 
-                {/* Images/Videos Showcase */}
-                <div className="space-y-6">
-                  <h4 className="text-lg font-bold">Galeri Tampilan</h4>
-                  {activeProject.images.map((media, idx) => {
-                    const isVideo = media.endsWith('.mp4') || media.endsWith('.webm');
-                    return isVideo ? (
-                      <video
-                        key={idx}
-                        src={media}
-                        controls
-                        className="w-full rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm"
-                      />
-                    ) : (
-                      <img
-                        key={idx}
-                        src={media}
-                        alt={`${activeProject.title} detail ${idx + 1}`}
-                        loading="lazy"
-                        className="w-full rounded-2xl object-cover border border-neutral-200 dark:border-neutral-800 shadow-sm"
-                      />
-                    );
-                  })}
+                  {/* Description */}
+                  <div>
+                    <h4 className="text-lg font-bold mb-2">Tentang Proyek</h4>
+                    <p className="text-[#0b5ed7]/80 leading-relaxed">
+                      {activeProject.fullDesc}
+                    </p>
+                  </div>
+
+                  {/* Images/Videos Showcase */}
+                  <div className="space-y-6">
+                    <h4 className="text-lg font-bold">Galeri Tampilan</h4>
+                    {activeProject.images.map((media, idx) => {
+                      const isVideo = media.endsWith('.mp4') || media.endsWith('.webm');
+                      return isVideo ? (
+                        <video
+                          key={idx}
+                          src={media}
+                          controls
+                          className="w-full rounded-2xl border border-[#0b5ed7]/20 shadow-sm"
+                        />
+                      ) : (
+                        <img
+                          key={idx}
+                          src={media}
+                          alt={`${activeProject.title} detail ${idx + 1}`}
+                          loading="lazy"
+                          className="w-full rounded-2xl object-cover border border-[#0b5ed7]/20 shadow-sm"
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* --- ABOUT SECTION --- */}
+        <section id="about" className="relative z-30 py-24 px-6 border-y border-[#0b5ed7]/15">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Profile Photo Container */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              className="relative"
+            >
+              <div className="aspect-square rounded-3xl overflow-hidden bg-[#0b5ed7]/10 max-w-md mx-auto shadow-2xl relative group transition-all duration-500 ease-out hover:scale-[1.03] hover:shadow-[0_0_35px_6px_rgba(11,94,215,0.25)]">
+                <img
+                  src="/samuel-profile.jpg"
+                  alt="Samuel Profile"
+                  loading="lazy"
+                  className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none flex flex-col justify-end p-6 md:p-8 text-white">
+                  <p className="text-2xl md:text-3xl font-black leading-tight mb-1">Samuel Arga Sefta Marantika</p>
+                  <p className="text-xs uppercase tracking-widest font-bold opacity-90">FREELANCER</p>
+                </div>
+              </div>
+
+            </motion.div>
+
+            {/* Bio & Skills */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              className="space-y-6"
+            >
+              <span className="text-xs uppercase font-bold tracking-widest text-[#0b5ed7]">Tentang Saya</span>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight">Kreativitas dari Layar hingga Lensa.</h2>
+
+              <p className="text-[#0b5ed7]/80 leading-relaxed font-light">
+                Saya adalah <strong>Samuel Arga Sefta Marantika</strong>, mahasiswa Kajian Film semester 3 yang baru menapaki dunia freelance sebagai desainer grafis, video editor, dan fotografer. Saya telah mengerjakan berbagai proyek—mulai dari kebutuhan acara, branding bisnis, kegiatan organisasi, hingga film pendek untuk penilaian akademik. Bagi saya, setiap karya adalah perpaduan antara narasi visual yang kuat dan eksekusi yang penuh dedikasi.
+              </p>
+
+              <div className="pt-4">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-[#0b5ed7]/70 mb-4 flex items-center gap-2">
+                  <Layers size={16} className="text-[#0b5ed7]" /> Keahlian & Spesialisasi
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {SKILLS.map((skill, idx) => (
+                    <motion.span
+                      key={skill}
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: idx * 0.05 }}
+                      className="px-4 py-2 rounded-xl bg-white border border-[#0b5ed7]/25 text-[#0b5ed7] text-sm font-medium shadow-sm"
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
                 </div>
               </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </section>
 
-      {/* --- ABOUT SECTION --- */}
-      <section id="about" className="relative z-10 py-24 px-6 bg-neutral-100/70 dark:bg-neutral-900/40 border-y border-neutral-200/60 dark:border-neutral-800/60">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Profile Photo Container */}
+        {/* --- CONTACT SECTION --- */}
+        <section id="contact" className="relative z-30 py-24 px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="relative"
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="space-y-12 w-full"
           >
-            <div className="aspect-square rounded-3xl overflow-hidden bg-neutral-300 dark:bg-neutral-800 max-w-md mx-auto shadow-2xl relative group transition-all duration-500 ease-out hover:scale-[1.03] hover:shadow-[0_0_35px_6px_rgba(255,255,255,0.25)]">
-              <img
-                src="/samuel-profile.jpg"
-                alt="Samuel Profile"
-                loading="lazy"
-                className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none flex flex-col justify-end p-6 md:p-8 text-white">
-                <p className="text-2xl md:text-3xl font-black leading-tight mb-1">Samuel Arga Sefta Marantika</p>
-                <p className="text-xs uppercase tracking-widest font-bold opacity-90">FREELANCER</p>
+            <div className="space-y-6">
+              <span className="inline-block px-5 py-2 rounded-full bg-[#0b5ed7]/10 text-sm font-semibold text-[#0b5ed7]">
+                Get in touch
+              </span>
+              <p className="text-[#0b5ed7]/75 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
+                What's next? Feel free to reach out to me if you're looking for a designer, have a query, or simply want to connect.
+              </p>
+            </div>
+
+            <div className="space-y-6 pt-4">
+              {/* Email */}
+              <div className="flex items-center justify-center gap-2 md:gap-4 text-xl md:text-4xl font-bold tracking-tight">
+                <Mail size={28} className="text-[#0b5ed7]/60 md:w-8 md:h-8 w-6 h-6" />
+                <span>marantikasamuel@gmail.com</span>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText('marantikasamuel@gmail.com');
+                    setCopiedEmail(true);
+                    setTimeout(() => setCopiedEmail(false), 2000);
+                  }}
+                  className={`transition-colors p-2 ${copiedEmail ? 'text-green-400' : 'text-[#0b5ed7]/50 hover:text-[#0b5ed7]'}`}
+                  aria-label="Copy email"
+                >
+                  {copiedEmail ? <CheckCircle2 size={24} className="md:w-7 md:h-7 w-5 h-5" /> : <Copy size={24} className="md:w-7 md:h-7 w-5 h-5" />}
+                </button>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-center justify-center gap-2 md:gap-4 text-xl md:text-4xl font-bold tracking-tight">
+                <WhatsApp size={28} className="text-[#0b5ed7]/60 md:w-8 md:h-8 w-6 h-6" />
+                <span>+62 896-8795-9233</span>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText('+62896-8795-9233');
+                    setCopiedPhone(true);
+                    setTimeout(() => setCopiedPhone(false), 2000);
+                  }}
+                  className={`transition-colors p-2 ${copiedPhone ? 'text-green-400' : 'text-[#0b5ed7]/50 hover:text-[#0b5ed7]'}`}
+                  aria-label="Copy phone"
+                >
+                  {copiedPhone ? <CheckCircle2 size={24} className="md:w-7 md:h-7 w-5 h-5" /> : <Copy size={24} className="md:w-7 md:h-7 w-5 h-5" />}
+                </button>
               </div>
             </div>
 
-          </motion.div>
-
-          {/* Bio & Skills */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="space-y-6"
-          >
-            <span className="text-xs uppercase font-bold tracking-widest text-neutral-900 dark:text-white">Tentang Saya</span>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight">Kreativitas dari Layar hingga Lensa.</h2>
-
-            <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed font-light">
-              Saya adalah <strong>Samuel Arga Sefta Marantika</strong>, mahasiswa Kajian Film semester 3 yang baru menapaki dunia freelance sebagai desainer grafis, video editor, dan fotografer. Saya telah mengerjakan berbagai proyek—mulai dari kebutuhan acara, branding bisnis, kegiatan organisasi, hingga film pendek untuk penilaian akademik. Bagi saya, setiap karya adalah perpaduan antara narasi visual yang kuat dan eksekusi yang penuh dedikasi.
-            </p>
-
-            <div className="pt-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-500 mb-4 flex items-center gap-2">
-                <Layers size={16} className="text-neutral-900 dark:text-white" /> Keahlian & Spesialisasi
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {SKILLS.map((skill, idx) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: idx * 0.05 }}
-                    className="px-4 py-2 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700/60 text-sm font-medium shadow-sm"
+            <div className="pt-16 space-y-6">
+              <p className="text-sm text-[#0b5ed7]/60">You may also find me on these platforms!</p>
+              <div className="flex justify-center gap-6">
+                {[
+                  { name: 'Github', icon: <Github size={24} />, href: 'https://github.com/marantikasamuel-creator' },
+                  { name: 'Instagram', icon: <Instagram size={24} />, href: 'https://www.instagram.com/s_amm01?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==' },
+                  { name: 'LinkedIn', icon: <Linkedin size={24} />, href: 'https://www.linkedin.com/in/samuel-marantika-89a576389/' },
+                ].map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#0b5ed7]/50 hover:text-[#0b5ed7] transition-colors p-2"
+                    aria-label={social.name}
                   >
-                    {skill}
-                  </motion.span>
+                    {social.icon}
+                  </a>
                 ))}
               </div>
             </div>
           </motion.div>
-        </div>
-      </section>
+        </section>
 
-      {/* --- CONTACT SECTION --- */}
-      <section id="contact" className="relative z-10 py-24 px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="space-y-12 w-full"
+        {/* --- FOOTER --- */}
+        <motion.footer
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="relative z-30 py-8 px-6 border-t border-[#0b5ed7]/15 text-center text-xs text-[#0b5ed7]/60"
         >
-          <div className="space-y-6">
-            <span className="inline-block px-5 py-2 rounded-full bg-neutral-200/60 dark:bg-neutral-800 text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-              Get in touch
-            </span>
-            <p className="text-neutral-600 dark:text-neutral-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
-              What's next? Feel free to reach out to me if you're looking for a designer, have a query, or simply want to connect.
-            </p>
-          </div>
-
-          <div className="space-y-6 pt-4">
-            {/* Email */}
-            <div className="flex items-center justify-center gap-2 md:gap-4 text-xl md:text-4xl font-bold tracking-tight">
-              <Mail size={28} className="text-neutral-400 md:w-8 md:h-8 w-6 h-6" />
-              <span>marantikasamuel@gmail.com</span>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText('marantikasamuel@gmail.com');
-                  setCopiedEmail(true);
-                  setTimeout(() => setCopiedEmail(false), 2000);
-                }}
-                className={`transition-colors p-2 ${copiedEmail ? 'text-green-400' : 'text-neutral-400 hover:text-neutral-900 dark:hover:text-white'}`}
-                aria-label="Copy email"
-              >
-                {copiedEmail ? <CheckCircle2 size={24} className="md:w-7 md:h-7 w-5 h-5" /> : <Copy size={24} className="md:w-7 md:h-7 w-5 h-5" />}
-              </button>
-            </div>
-
-            {/* Phone */}
-            <div className="flex items-center justify-center gap-2 md:gap-4 text-xl md:text-4xl font-bold tracking-tight">
-              <WhatsApp size={28} className="text-neutral-400 md:w-8 md:h-8 w-6 h-6" />
-              <span>+62 896-8795-9233</span>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText('+62896-8795-9233');
-                  setCopiedPhone(true);
-                  setTimeout(() => setCopiedPhone(false), 2000);
-                }}
-                className={`transition-colors p-2 ${copiedPhone ? 'text-green-400' : 'text-neutral-400 hover:text-neutral-900 dark:hover:text-white'}`}
-                aria-label="Copy phone"
-              >
-                {copiedPhone ? <CheckCircle2 size={24} className="md:w-7 md:h-7 w-5 h-5" /> : <Copy size={24} className="md:w-7 md:h-7 w-5 h-5" />}
-              </button>
-            </div>
-          </div>
-
-          <div className="pt-16 space-y-6">
-            <p className="text-sm text-neutral-500">You may also find me on these platforms!</p>
-            <div className="flex justify-center gap-6">
-              {[
-                { name: 'Github', icon: <Github size={24} />, href: 'https://github.com/marantikasamuel-creator' },
-                { name: 'Instagram', icon: <Instagram size={24} />, href: 'https://www.instagram.com/s_amm01?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==' },
-                { name: 'LinkedIn', icon: <Linkedin size={24} />, href: 'https://www.linkedin.com/in/samuel-marantika-89a576389/' },
-              ].map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors p-2"
-                  aria-label={social.name}
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* --- FOOTER --- */}
-      <motion.footer
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="relative z-10 py-8 px-6 border-t border-neutral-200 dark:border-neutral-800 text-center text-xs text-neutral-500"
-      >
-        <p>© {new Date().getFullYear()} Samuel. Be better be creative. All rights reserved.</p>
-      </motion.footer>
+          <p>© {new Date().getFullYear()} Samuel. Be better be creative. All rights reserved.</p>
+        </motion.footer>
+      </div>
 
     </div>
   );
