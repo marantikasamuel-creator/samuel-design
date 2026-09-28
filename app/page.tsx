@@ -476,9 +476,9 @@ export default function App() {
               transition={{ duration: 0.7, ease: 'easeOut' }}
               className="flex-1 flex items-center justify-center md:justify-end md:pr-10"
             >
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white text-center md:text-right drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
-                <DecryptedText text="Be" />
-                <br />
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white text-center md:text-right drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
+                <DecryptedText text="Be" />{' '}
+                <br className="hidden md:block" />
                 <DecryptedText text="Better" />
               </h1>
             </motion.div>
@@ -506,9 +506,9 @@ export default function App() {
               transition={{ duration: 0.7, ease: 'easeOut' }}
               className="flex-1 flex items-center justify-center md:justify-start md:pl-10"
             >
-              <p className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-center md:text-left drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
-                <span className="animated-gradient-text-light">Be</span>
-                <br />
+              <p className="text-[2.6rem] md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-center md:text-left drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
+                <span className="animated-gradient-text-light">Be</span>{' '}
+                <br className="hidden md:block" />
                 <span className="animated-gradient-text-light">Creative</span>
               </p>
             </motion.div>
