@@ -539,18 +539,18 @@ export default function App() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="relative z-30 flex flex-wrap items-center justify-center gap-4"
+            className="relative z-30 flex w-full md:w-auto flex-row items-center justify-center gap-3 md:gap-4 px-2 md:px-0"
           >
             <a
               href="#work"
-              className="btn-fill-center px-8 py-4 font-semibold rounded-full flex items-center gap-2 group shadow-lg"
+              className="btn-fill-center flex-1 md:flex-none px-2 py-3.5 md:px-8 md:py-4 text-xs md:text-base font-semibold rounded-full flex items-center justify-center gap-1 md:gap-2 group shadow-lg whitespace-nowrap"
             >
               Lihat Portofolio
-              <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight size={16} className="md:w-[18px] md:h-[18px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
             <a
               href="#contact"
-              className="btn-fill-center px-8 py-4 font-semibold rounded-full"
+              className="btn-fill-center flex-1 md:flex-none px-2 py-3.5 md:px-8 md:py-4 text-xs md:text-base font-semibold rounded-full flex items-center justify-center shadow-lg whitespace-nowrap"
             >
               Diskusi Proyek
             </a>
