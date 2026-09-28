@@ -198,6 +198,16 @@ body {
   animation: gradient-flow 4s ease infinite;
 }
 
+/* Animated gradient text for white background (Be Creative) */
+.animated-gradient-text-dark {
+  background: linear-gradient(270deg, #0b5ed7, #2f86eb, #63b3ff, #0b5ed7);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 4s ease infinite;
+}
+
 /* --- Glare (kilau) diagonal untuk kartu karya --- */
 /* Menyapu seluruh area card: lapisan putih sebagai kilau utama, plus lapisan
    biru tipis agar sapuannya tetap terlihat di area konten yang putih */
@@ -281,4 +291,18 @@ body {
   .card-glare {
     display: none;
   }
+}
+
+/* --- Infinite scroll for tools --- */
+@keyframes infinite-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 30s linear infinite;
 }

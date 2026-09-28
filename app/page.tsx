@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import WaterWaveBackground from './component/WaterWaveBackground';
 import BubbleParticles from './component/BubbleParticles';
 import HeroClouds from './component/HeroClouds';
+import ToolsSlider from './component/ToolsSlider';
 type IconProps = React.SVGProps<SVGSVGElement> & { size?: number };
 
 const createIcon = (symbol: string) => ({ size = 24, ...props }: IconProps) => (
@@ -451,28 +452,67 @@ export default function App() {
       </nav>
 
       {/* --- BLUE HALF OF HERO --- */}
-      <section className="hero-light relative z-10 h-[50vh] min-h-[400px] overflow-hidden bg-gradient-to-b from-[#0b5ed7] via-[#2f86eb] to-[#63b3ff]">
+      <section className="hero-light relative z-10 flex flex-col justify-center overflow-hidden bg-gradient-to-b from-[#0b5ed7] via-[#2f86eb] to-[#63b3ff] pt-28 pb-6 md:pt-32 md:pb-8 min-h-[420px] md:min-h-[480px] lg:min-h-[520px]">
         {/* Awan tipis yang bergerak searah gelombang air di bawahnya */}
         <HeroClouds />
-        <div className="relative z-10 h-full flex flex-col justify-end px-6 pt-28 md:pt-36 pb-14">
+        <div className="relative z-10 flex flex-col justify-center px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-7xl mx-auto w-full"
+            className="max-w-7xl mx-auto w-full flex justify-center"
           >
-            <span className="inline-flex items-center gap-2 text-xs md:text-sm font-semibold tracking-wider uppercase text-white/90 mb-6 border border-white/40 bg-white/10 rounded-full px-4 py-1.5 backdrop-blur-sm">
+            <span className="inline-flex items-center gap-2 text-xs md:text-sm font-semibold tracking-wider uppercase text-white/90 mb-10 md:mb-4 border border-white/40 bg-white/10 rounded-full px-4 py-1.5 backdrop-blur-sm">
               <Sparkles size={60} className="text-white w-5 h-5 md:w-6 md:h-6" /> Graphic Designer · Video Editor · Photographer
             </span>
-
-            <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[1.05] text-white">
-              <DecryptedText text="Be better" />
-              {' '}<br className="hidden md:block" />
-              <span className="animated-gradient-text-light">
-                Be creative.
-              </span>
-            </h1>
           </motion.div>
+
+          {/* Three-column layout up in the sky: text | photo | text */}
+          <div className="relative z-30 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-0 md:-mt-6">
+            {/* Left: Be Better */}
+            <motion.div
+              initial={{ opacity: 0, x: -60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              className="flex-1 flex items-center justify-center md:justify-end md:pr-10"
+            >
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-tight text-white text-center md:text-right drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
+                <DecryptedText text="Be" />
+                <br />
+                <DecryptedText text="Better" />
+              </h1>
+            </motion.div>
+
+            {/* Center: Photo without frame */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
+              className="relative flex-shrink-0 w-56 h-64 md:w-72 md:h-80 lg:w-80 lg:h-96 flex items-center justify-center"
+            >
+              <div className="w-full h-full">
+                <img
+                  src="/Group%201%20(2).png"
+                  alt="Samuel Arga Sefta Marantika"
+                  className="w-full h-full object-contain object-center drop-shadow-[0_18px_30px_rgba(11,94,215,0.4)]"
+                />
+              </div>
+            </motion.div>
+
+            {/* Right: Be Creative */}
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              className="flex-1 flex items-center justify-center md:justify-start md:pl-10"
+            >
+              <p className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-tight text-center md:text-left drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
+                <span className="animated-gradient-text-light">Be</span>
+                <br />
+                <span className="animated-gradient-text-light">Creative</span>
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -480,37 +520,45 @@ export default function App() {
       <div className="relative bg-white">
         <BubbleParticles count={48} style={{ zIndex: 20 }} />
 
-        {/* --- WHITE HALF OF HERO --- */}
-        <section className="hero-light relative z-10 h-[50vh] min-h-[400px] flex flex-col justify-start px-6 pt-14 pb-16 md:pb-20">
+        {/* --- WHITE HALF OF HERO: CTA buttons floating on the calm water --- */}
+        <section className="hero-light relative z-10 flex flex-col items-center justify-center px-6 pt-0 pb-10 md:pt-0 md:pb-12 -mt-4 md:-mt-6">
           <WaterWaveBackground />
 
-          <motion.div
+          {/* Small prompt so the calm-water band reads as intentional */}
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="relative z-30 max-w-7xl mx-auto w-full"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="relative z-30 mb-4 text-center text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-[#0b5ed7]/70"
           >
-            <p className="text-lg md:text-2xl text-[#0b5ed7]/80 max-w-2xl font-light leading-relaxed mb-10">
-              Halo, saya <span className="font-semibold text-[#0b5ed7]">Samuel Arga Sefta Marantika</span>. Mahasiswa Kajian Film semester 3 yang juga aktif sebagai freelancer di bidang desain grafis, video editing, dan fotografi—mengerjakan proyek untuk acara, bisnis, organisasi, hingga film pendek.
-            </p>
+            Mari Berkolaborasi
+          </motion.p>
 
-            <div className="flex flex-wrap items-center gap-4">
-              <a
-                href="#work"
-                className="btn-fill-center px-8 py-4 font-semibold rounded-full flex items-center gap-2 group shadow-lg"
-              >
-                Lihat Portofolio
-                <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
-              <a
-                href="#contact"
-                className="btn-fill-center px-8 py-4 font-semibold rounded-full"
-              >
-                Diskusi Proyek
-              </a>
-            </div>
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="relative z-30 flex flex-wrap items-center justify-center gap-4"
+          >
+            <a
+              href="#work"
+              className="btn-fill-center px-8 py-4 font-semibold rounded-full flex items-center gap-2 group shadow-lg"
+            >
+              Lihat Portofolio
+              <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+            <a
+              href="#contact"
+              className="btn-fill-center px-8 py-4 font-semibold rounded-full"
+            >
+              Diskusi Proyek
+            </a>
           </motion.div>
         </section>
+
+        {/* --- TOOLS SECTION --- */}
+        <ToolsSlider />
 
         {/* --- SERVICES SECTION --- */}
         <section id="services" className="relative z-30 py-24 px-6 max-w-7xl mx-auto">
