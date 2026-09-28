@@ -452,7 +452,7 @@ export default function App() {
       </nav>
 
       {/* --- BLUE HALF OF HERO --- */}
-      <section className="hero-light relative z-10 flex flex-col justify-center overflow-hidden bg-gradient-to-b from-[#0b5ed7] via-[#2f86eb] to-[#63b3ff] pt-24 pb-4 md:pt-32 md:pb-8 min-h-[360px] md:min-h-[480px] lg:min-h-[520px]">
+      <section className="hero-light relative z-10 flex flex-col justify-center overflow-hidden bg-gradient-to-b from-[#0b5ed7] via-[#2f86eb] to-[#63b3ff] pt-24 pb-16 md:pt-32 md:pb-8 min-h-[560px] md:min-h-[480px] lg:min-h-[520px]">
         {/* Awan tipis yang bergerak searah gelombang air di bawahnya */}
         <HeroClouds />
         <div className="relative z-10 flex flex-col justify-center px-6">
