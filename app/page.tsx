@@ -452,7 +452,7 @@ export default function App() {
       </nav>
 
       {/* --- BLUE HALF OF HERO --- */}
-      <section className="hero-light relative z-10 flex flex-col justify-center overflow-hidden bg-gradient-to-b from-[#0b5ed7] via-[#2f86eb] to-[#63b3ff] pt-28 pb-6 md:pt-32 md:pb-8 min-h-[420px] md:min-h-[480px] lg:min-h-[520px]">
+      <section className="hero-light relative z-10 flex flex-col justify-center overflow-hidden bg-gradient-to-b from-[#0b5ed7] via-[#2f86eb] to-[#63b3ff] pt-24 pb-4 md:pt-32 md:pb-8 min-h-[360px] md:min-h-[480px] lg:min-h-[520px]">
         {/* Awan tipis yang bergerak searah gelombang air di bawahnya */}
         <HeroClouds />
         <div className="relative z-10 flex flex-col justify-center px-6">
@@ -462,13 +462,13 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="max-w-7xl mx-auto w-full flex justify-center"
           >
-            <span className="inline-flex items-center gap-2 text-xs md:text-sm font-semibold tracking-wider uppercase text-white/90 mb-10 md:mb-4 border border-white/40 bg-white/10 rounded-full px-4 py-1.5 backdrop-blur-sm">
+            <span className="inline-flex items-center gap-2 text-xs md:text-sm font-semibold tracking-wider uppercase text-white/90 mb-4 md:mb-4 border border-white/40 bg-white/10 rounded-full px-4 py-1.5 backdrop-blur-sm">
               <Sparkles size={60} className="text-white w-5 h-5 md:w-6 md:h-6" /> Graphic Designer · Video Editor · Photographer
             </span>
           </motion.div>
 
           {/* Three-column layout up in the sky: text | photo | text */}
-          <div className="relative z-30 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-0 md:-mt-6">
+          <div className="relative z-30 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-1 md:gap-0 md:-mt-6">
             {/* Left: Be Better */}
             <motion.div
               initial={{ opacity: 0, x: -60 }}
@@ -476,7 +476,7 @@ export default function App() {
               transition={{ duration: 0.7, ease: 'easeOut' }}
               className="flex-1 flex items-center justify-center md:justify-end md:pr-10"
             >
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-tight text-white text-center md:text-right drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white text-center md:text-right drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
                 <DecryptedText text="Be" />
                 <br />
                 <DecryptedText text="Better" />
@@ -488,7 +488,7 @@ export default function App() {
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-              className="relative flex-shrink-0 w-56 h-64 md:w-72 md:h-80 lg:w-80 lg:h-96 flex items-center justify-center"
+              className="relative flex-shrink-0 w-44 h-48 md:w-72 md:h-80 lg:w-80 lg:h-96 flex items-center justify-center"
             >
               <div className="w-full h-full">
                 <img
@@ -506,7 +506,7 @@ export default function App() {
               transition={{ duration: 0.7, ease: 'easeOut' }}
               className="flex-1 flex items-center justify-center md:justify-start md:pl-10"
             >
-              <p className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-tight text-center md:text-left drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
+              <p className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-center md:text-left drop-shadow-[0_6px_24px_rgba(11,94,215,0.45)]">
                 <span className="animated-gradient-text-light">Be</span>
                 <br />
                 <span className="animated-gradient-text-light">Creative</span>
