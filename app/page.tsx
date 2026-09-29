@@ -2,10 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Pagination, Keyboard, Mousewheel } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+
 import WaterWaveBackground from './component/WaterWaveBackground';
 import BubbleParticles from './component/BubbleParticles';
 import HeroClouds from './component/HeroClouds';
 import ToolsSlider from './component/ToolsSlider';
+import Header from './component/curved-menu';
 type IconProps = React.SVGProps<SVGSVGElement> & { size?: number };
 
 const createIcon = (symbol: string) => ({ size = 24, ...props }: IconProps) => (
@@ -113,7 +121,7 @@ const Video = ({ size = 24, className = '', ...props }: IconProps & { className?
 );
 
 // --- Types ---
-type Category = 'All' | 'UI/UX' | 'Iklan' | 'Film' | 'Photography' | 'Banner';
+type Category = 'All' | 'UI/UX' | 'Iklan' | 'Film' | 'Photography' | 'Banner' | 'Front End';
 
 interface Project {
   id: string;
@@ -215,6 +223,20 @@ const PROJECTS: Project[] = [
       '/IMG_1023.JPG',
       '/IMG_9971.JPG'
     ]
+  },
+  {
+    id: '7',
+    title: 'Personal Project Portofolio',
+    category: 'Front End',
+    thumbnail: '/MacBook Air (2022).png',
+    shortDesc: 'Desain dan pengembangan website portofolio personal.',
+    fullDesc: 'Personal project membuat website portofolio untuk menampilkan karya-karya desain dan dokumentasi.',
+    client: 'Personal Project',
+    year: '2026',
+    tools: ['Figma', 'Next.js', 'TailwindCSS'],
+    images: [
+      '/MacBook #13 (2).png'
+    ]
   }
 ];
 
@@ -273,6 +295,42 @@ function DecryptedText({ text }: { text: string }) {
     >
       <span className="invisible" aria-hidden="true">{text}</span>
       <span className="absolute inset-0 whitespace-nowrap" aria-hidden="true">{displayText}</span>
+    </motion.span>
+  );
+}
+
+function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
+  return (
+    <motion.span
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '0px' }}
+      variants={{
+        visible: { transition: { staggerChildren: 0.05, delayChildren: delay } },
+        hidden: {}
+      }}
+      className="inline-block"
+      aria-label={text}
+    >
+      {text.split('').map((char, i) => (
+        <motion.span
+          key={i}
+          variants={{
+            visible: { display: 'inline', opacity: 1 },
+            hidden: { display: 'none', opacity: 0 }
+          }}
+          aria-hidden="true"
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </motion.span>
+      ))}
+      <motion.span
+        variants={{
+          visible: { opacity: [1, 0], transition: { repeat: Infinity, duration: 0.8, ease: "linear" } },
+          hidden: { opacity: 0 }
+        }}
+        className="inline-block w-[3px] h-[0.9em] bg-current align-middle ml-[2px]"
+      />
     </motion.span>
   );
 }
@@ -384,9 +442,12 @@ export default function App() {
     ? PROJECTS
     : PROJECTS.filter(p => p.category === selectedCategory);
 
+  const menuItems = navLinks.map(link => ({ heading: link.label, href: link.href }));
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-white text-[#0b5ed7] font-sans selection:bg-[#0b5ed7] selection:text-white">
       <ClickSparks />
+      <Header navItems={menuItems} />
 
       {/* --- NAVBAR --- */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-white border-b border-[#0b5ed7]/15 transition-colors">
@@ -415,40 +476,8 @@ export default function App() {
                 )}
               </a>
             ))}
-
-
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <div className="flex md:hidden items-center gap-3">
-
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#0b5ed7]"
-            >
-              <Menu size={24} />
-            </button>
           </div>
         </div>
-
-        {/* Mobile Nav Links */}
-        {mobileMenuOpen && (
-          <div className="relative z-10 md:hidden border-b border-[#0b5ed7]/15 px-6 py-4 space-y-3 bg-white">
-            {navLinks.map((link) => (
-              <a
-                key={link.id}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block py-1 font-medium transition-colors ${activeSection === link.id ? 'text-[#0b5ed7]' : 'text-[#0b5ed7]/60 hover:text-[#0b5ed7]'}`}
-              >
-                {link.label}
-                {activeSection === link.id && (
-                  <span className="block h-0.5 w-6 bg-[#0b5ed7] rounded-full mt-0.5" />
-                )}
-              </a>
-            ))}
-          </div>
-        )}
       </nav>
 
       {/* --- BLUE HALF OF HERO --- */}
@@ -572,24 +601,24 @@ export default function App() {
             <p className="text-3xl md:text-5xl font-black tracking-tight">My Service</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
             {/* Card 1: Graphic Design */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="group flex flex-col items-center text-center p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group flex flex-col items-center text-center p-4 md:p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="mb-6 text-[#0b5ed7]">
-                <Palette size={48} strokeWidth={1.5} />
+              <div className="mb-3 md:mb-6 text-[#0b5ed7]">
+                <Palette strokeWidth={1.5} className="w-8 h-8 md:w-12 md:h-12" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Graphic Design</h3>
-              <p className="text-sm text-[#0b5ed7]/70 mb-8 leading-relaxed">
+              <h3 className="text-sm md:text-xl font-bold mb-2 md:mb-4">Graphic Design</h3>
+              <p className="text-[10px] md:text-sm text-[#0b5ed7]/70 mb-4 md:mb-8 leading-relaxed">
                 Desain visual yang menarik untuk kebutuhan branding, promosi, dan media sosial Anda.
               </p>
-              <a href="#contact" className="text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
-                View details <ArrowUpRight size={16} />
+              <a href="#contact" className="text-[10px] md:text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
+                View details <ArrowUpRight className="w-3 h-3 md:w-4 md:h-4" />
               </a>
             </motion.div>
 
@@ -599,17 +628,17 @@ export default function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="group flex flex-col items-center text-center p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group flex flex-col items-center text-center p-4 md:p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="mb-6 text-[#0b5ed7]">
-                <Globe size={48} strokeWidth={1.5} />
+              <div className="mb-3 md:mb-6 text-[#0b5ed7]">
+                <Globe strokeWidth={1.5} className="w-8 h-8 md:w-12 md:h-12" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Web Design</h3>
-              <p className="text-sm text-[#0b5ed7]/70 mb-8 leading-relaxed">
+              <h3 className="text-sm md:text-xl font-bold mb-2 md:mb-4">Web Design</h3>
+              <p className="text-[10px] md:text-sm text-[#0b5ed7]/70 mb-4 md:mb-8 leading-relaxed">
                 Menciptakan antarmuka website yang estetis, responsif, dan mudah digunakan.
               </p>
-              <a href="#contact" className="text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
-                View details <ArrowUpRight size={16} />
+              <a href="#contact" className="text-[10px] md:text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
+                View details <ArrowUpRight className="w-3 h-3 md:w-4 md:h-4" />
               </a>
             </motion.div>
 
@@ -619,17 +648,17 @@ export default function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="group flex flex-col items-center text-center p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group flex flex-col items-center text-center p-4 md:p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="mb-6 text-[#0b5ed7]">
-                <Camera size={48} strokeWidth={1.5} />
+              <div className="mb-3 md:mb-6 text-[#0b5ed7]">
+                <Camera strokeWidth={1.5} className="w-8 h-8 md:w-12 md:h-12" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Photography</h3>
-              <p className="text-sm text-[#0b5ed7]/70 mb-8 leading-relaxed">
+              <h3 className="text-sm md:text-xl font-bold mb-2 md:mb-4">Photography</h3>
+              <p className="text-[10px] md:text-sm text-[#0b5ed7]/70 mb-4 md:mb-8 leading-relaxed">
                 Menangkap momen terbaik dengan kualitas visual yang tajam dan bercerita.
               </p>
-              <a href="#contact" className="text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
-                View details <ArrowUpRight size={16} />
+              <a href="#contact" className="text-[10px] md:text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
+                View details <ArrowUpRight className="w-3 h-3 md:w-4 md:h-4" />
               </a>
             </motion.div>
 
@@ -639,17 +668,17 @@ export default function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="group flex flex-col items-center text-center p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group flex flex-col items-center text-center p-4 md:p-8 rounded-2xl bg-white border border-[#0b5ed7]/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="mb-6 text-[#0b5ed7]">
-                <Video size={48} strokeWidth={1.5} />
+              <div className="mb-3 md:mb-6 text-[#0b5ed7]">
+                <Video strokeWidth={1.5} className="w-8 h-8 md:w-12 md:h-12" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Video Editing</h3>
-              <p className="text-sm text-[#0b5ed7]/70 mb-8 leading-relaxed">
+              <h3 className="text-sm md:text-xl font-bold mb-2 md:mb-4">Video Editing</h3>
+              <p className="text-[10px] md:text-sm text-[#0b5ed7]/70 mb-4 md:mb-8 leading-relaxed">
                 Menyusun dan mengolah video menjadi cerita yang menarik dan profesional.
               </p>
-              <a href="#contact" className="text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
-                View details <ArrowUpRight size={16} />
+              <a href="#contact" className="text-[10px] md:text-sm font-medium text-[#0b5ed7] flex items-center gap-1 group-hover:gap-2 transition-all mt-auto">
+                View details <ArrowUpRight className="w-3 h-3 md:w-4 md:h-4" />
               </a>
             </motion.div>
 
@@ -657,13 +686,13 @@ export default function App() {
         </section>
 
         {/* --- PORTFOLIO GALLERY SECTION --- */}
-        <section id="work" className="relative z-30 py-24 px-6 max-w-7xl mx-auto">
+        <section id="work" className="relative z-30 py-24 w-full overflow-hidden">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
+            className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 max-w-7xl mx-auto px-6"
           >
             <div>
               <h2 className="text-xs uppercase font-bold tracking-widest text-[#0b5ed7] mb-2">Portofolio Pilihan</h2>
@@ -687,55 +716,80 @@ export default function App() {
             </div>
           </motion.div>
 
-          {/* Masonry / Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project) => (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{
-                    layout: { type: 'spring', stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.25, ease: 'easeInOut' },
-                    scale: { duration: 0.25, ease: 'easeInOut' },
-                  }}
-                  key={project.id}
-                  onClick={() => setActiveProject(project)}
-                  className="group relative cursor-pointer rounded-2xl overflow-hidden bg-white border border-[#0b5ed7]/20 transition-[box-shadow] duration-500 ease-out hover:shadow-[0_0_35px_6px_rgba(11,94,215,0.25)]"
-                >
-                  {/* Lazy Loaded Image Container */}
-                  <div className="aspect-[4/3] overflow-hidden bg-[#0b5ed7]/5">
-                    <img
-                      src={project.thumbnail}
-                      alt={project.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                  </div>
+          {/* Swiper Carousel */}
+          <div className="w-full py-12">
+            <Swiper
+              effect={'coverflow'}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 1.5,
+                slideShadows: false,
+              }}
+              keyboard={{
+                enabled: true,
+              }}
+              mousewheel={{
+                thresholdDelta: 70,
+              }}
+              spaceBetween={90}
+              loop={true}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[EffectCoverflow, Pagination, Keyboard, Mousewheel]}
+              className="w-full !pb-16"
+            >
+              <AnimatePresence mode="popLayout">
+                {filteredProjects.map((project) => (
+                  <SwiperSlide key={project.id} className="!w-[300px] md:!w-[420px] !h-auto flex rounded-2xl overflow-hidden">
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{
+                        layout: { type: 'spring', stiffness: 300, damping: 30 },
+                        opacity: { duration: 0.25, ease: 'easeInOut' },
+                        scale: { duration: 0.25, ease: 'easeInOut' },
+                      }}
+                      onClick={() => setActiveProject(project)}
+                      className="group relative cursor-pointer rounded-2xl overflow-hidden bg-white border border-[#0b5ed7]/20 transition-[box-shadow] duration-500 ease-out hover:shadow-[0_0_35px_6px_rgba(11,94,215,0.25)] flex flex-col w-full h-full"
+                    >
+                      {/* Lazy Loaded Image Container */}
+                      <div className="aspect-[4/3] overflow-hidden bg-[#0b5ed7]/5 shrink-0">
+                        <img
+                          src={project.thumbnail}
+                          alt={project.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                        />
+                      </div>
 
-                  {/* Card Content Overlay / Bottom info */}
-                  <div className="p-6 flex flex-col justify-between">
-                    <div>
-                      <span className="text-xs font-semibold text-[#0b5ed7] uppercase tracking-wider">
-                        {project.category}
-                      </span>
-                      <h3 className="text-xl font-bold mt-1 group-hover:text-[#2f86eb] transition-colors flex items-center justify-between">
-                        {project.title}
-                        <ArrowUpRight size={18} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-[#0b5ed7]" />
-                      </h3>
-                      <p className="text-sm text-[#0b5ed7]/70 mt-2 line-clamp-2">
-                        {project.shortDesc}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Kilau melintang (lihat .card-glare di globals.css): menyapu seluruh area card hanya saat card ini di-hover, lalu langsung reset tanpa sapuan balik saat kursor pergi */}
-                  <span aria-hidden="true" className="card-glare" />
-                </motion.div>
-              ))}
-            </AnimatePresence>
+                      {/* Card Content Overlay / Bottom info */}
+                      <div className="p-6 flex flex-col justify-between flex-grow">
+                        <div>
+                          <span className="text-xs font-semibold text-[#0b5ed7] uppercase tracking-wider">
+                            {project.category}
+                          </span>
+                          <h3 className="text-xl font-bold mt-1 group-hover:text-[#2f86eb] transition-colors flex items-center justify-between">
+                            {project.title}
+                            <ArrowUpRight size={18} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-[#0b5ed7]" />
+                          </h3>
+                          <p className="text-sm text-[#0b5ed7]/70 mt-2 line-clamp-2">
+                            {project.shortDesc}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </SwiperSlide>
+                ))}
+              </AnimatePresence>
+            </Swiper>
           </div>
         </section>
 
@@ -918,7 +972,7 @@ export default function App() {
               {/* Email */}
               <div className="flex items-center justify-center gap-2 md:gap-4 text-xl md:text-4xl font-bold tracking-tight">
                 <Mail size={28} className="text-[#0b5ed7]/60 md:w-8 md:h-8 w-6 h-6" />
-                <span>marantikasamuel@gmail.com</span>
+                <TypewriterText text="marantikasamuel@gmail.com" delay={0.2} />
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText('marantikasamuel@gmail.com');
@@ -935,7 +989,7 @@ export default function App() {
               {/* Phone */}
               <div className="flex items-center justify-center gap-2 md:gap-4 text-xl md:text-4xl font-bold tracking-tight">
                 <WhatsApp size={28} className="text-[#0b5ed7]/60 md:w-8 md:h-8 w-6 h-6" />
-                <span>+62 896-8795-9233</span>
+                <TypewriterText text="+62 896-8795-9233" delay={0.8} />
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText('+62896-8795-9233');
