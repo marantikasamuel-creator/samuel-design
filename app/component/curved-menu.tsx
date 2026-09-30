@@ -1,7 +1,7 @@
 "use client";
-import React, {useState, useRef} from "react";
+import React, { useState, useRef } from "react";
 
-import {motion, useMotionValue, AnimatePresence} from "framer-motion";
+import { motion, useMotionValue, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 interface iNavItem {
@@ -27,11 +27,11 @@ interface iHeaderProps {
 }
 
 const MENU_SLIDE_ANIMATION: any = {
-	initial: {x: "calc(100% + 100px)"},
-	enter: {x: "0", transition: {duration: 0.8, ease: [0.76, 0, 0.24, 1]}},
+	initial: { x: "calc(100% + 100px)" },
+	enter: { x: "0", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } },
 	exit: {
 		x: "calc(100% + 100px)",
-		transition: {duration: 0.8, ease: [0.76, 0, 0.24, 1]},
+		transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
 	},
 };
 
@@ -64,14 +64,14 @@ const defaultNavItems: iNavItem[] = [
 
 const CustomFooter: React.FC = () => {
 	return (
-		<div className="flex w-full text-xs font-semibold uppercase tracking-wider justify-between text-black px-10 md:px-24 py-5">
-			<a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#0b5ed7] transition-colors">
+		<div className="flex w-full text-xs font-semibold uppercase tracking-wider justify-between text-[#0b5ed7] px-10 md:px-24 py-5">
+			<a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
 				LinkedIn
 			</a>
-			<a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#0b5ed7] transition-colors">
+			<a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
 				GitHub
 			</a>
-			<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#0b5ed7] transition-colors">
+			<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
 				Instagram
 			</a>
 		</div>
@@ -104,7 +104,7 @@ const NavLink: React.FC<iNavLinkProps> = ({
 
 	const isExternalLink = index === 4 || index === 3;
 	const linkProps = isExternalLink
-		? {target: "_blank", rel: "noopener noreferrer"}
+		? { target: "_blank", rel: "noopener noreferrer" }
 		: {};
 
 	return (
@@ -112,39 +112,39 @@ const NavLink: React.FC<iNavLinkProps> = ({
 			onClick={handleClick}
 			initial="initial"
 			whileHover="whileHover"
-			className="group relative flex items-center justify-between border-b border-black/30 py-4 transition-colors duration-500 md:py-8 uppercase"
+			className="group relative flex items-center justify-between border-b border-[#0b5ed7]/20 py-4 transition-colors duration-500 md:py-8 uppercase"
 			{...linkProps}
 		>
 			<Link ref={ref} onMouseMove={handleMouseMove} href={href}>
 				<div className="relative flex items-start">
-					<span className="text-black transition-colors duration-500 text-2xl font-medium mr-2">
+					<span className="text-[#0b5ed7] transition-colors duration-500 text-2xl font-medium mr-2">
 						{index}.
 					</span>
 					<div className="flex flex-row gap-2">
 						<motion.span
 							variants={{
-								initial: {x: 0},
-								whileHover: {x: -16},
+								initial: { x: 0 },
+								whileHover: { x: -16 },
 							}}
 							transition={{
 								type: "spring",
 								staggerChildren: 0.075,
 								delayChildren: 0.25,
 							}}
-							className="relative z-10 block text-2xl font-medium text-black transition-colors duration-500"
+							className="relative z-10 block text-2xl font-medium text-[#0b5ed7] transition-colors duration-500"
 						>
 							{heading.split("").map((letter, i) => {
 								return (
 									<motion.span
 										key={i}
 										variants={{
-											initial: {x: 0},
-											whileHover: {x: 16},
+											initial: { x: 0 },
+											whileHover: { x: 16 },
 										}}
-										transition={{type: "spring"}}
+										transition={{ type: "spring" }}
 										className="inline-block"
 									>
-										{letter}
+										{letter === " " ? "\u00A0" : letter}
 									</motion.span>
 								);
 							})}
@@ -161,21 +161,21 @@ const Curve: React.FC = () => {
 	const targetPath = `M100 0 L200 0 L200 ${window.innerHeight} L100 ${window.innerHeight} Q100 ${window.innerHeight / 2} 100 0`;
 
 	const curve: any = {
-		initial: {d: initialPath},
+		initial: { d: initialPath },
 		enter: {
 			d: targetPath,
-			transition: {duration: 1, ease: [0.76, 0, 0.24, 1]},
+			transition: { duration: 1, ease: [0.76, 0, 0.24, 1] },
 		},
 		exit: {
 			d: initialPath,
-			transition: {duration: 0.8, ease: [0.76, 0, 0.24, 1]},
+			transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
 		},
 	};
 
 	return (
 		<svg
 			className="absolute top-0 -left-[99px] w-[100px] stroke-none h-full"
-			style={{fill: "#ffffff"}}
+			style={{ fill: "#ffffff" }}
 		>
 			<motion.path
 				variants={curve}
@@ -188,8 +188,8 @@ const Curve: React.FC = () => {
 };
 
 const CurvedNavbar: React.FC<
-	iCurvedNavbarProps & {footer?: React.ReactNode}
-> = ({setIsActive, navItems, footer}) => {
+	iCurvedNavbarProps & { footer?: React.ReactNode }
+> = ({ setIsActive, navItems, footer }) => {
 	return (
 		<motion.div
 			variants={MENU_SLIDE_ANIMATION}
@@ -200,7 +200,7 @@ const CurvedNavbar: React.FC<
 		>
 			<div className="h-full pt-11 flex flex-col justify-between">
 				<div className="flex flex-col text-5xl gap-3 mt-0 px-10 md:px-24">
-					<div className="text-black border-b border-black/30 uppercase text-sm mb-0">
+					<div className="text-[#0b5ed7] border-b border-[#0b5ed7]/20 uppercase text-sm mb-0">
 						<p>Navigation</p>
 					</div>
 					<section className="bg-transparent mt-0">
@@ -251,14 +251,14 @@ const Header: React.FC<iHeaderProps> = ({
 				>
 					{isActive ? (
 						<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M18 6L6 18" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-							<path d="M6 6L18 18" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+							<path d="M18 6L6 18" stroke="#0b5ed7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+							<path d="M6 6L18 18" stroke="#0b5ed7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 						</svg>
 					) : (
 						<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M4 18L20 18" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
-							<path d="M4 12L20 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
-							<path d="M4 6L20 6" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
+							<path d="M4 18L20 18" stroke="#0b5ed7" strokeWidth="2" strokeLinecap="round" />
+							<path d="M4 12L20 12" stroke="#0b5ed7" strokeWidth="2" strokeLinecap="round" />
+							<path d="M4 6L20 6" stroke="#0b5ed7" strokeWidth="2" strokeLinecap="round" />
 						</svg>
 					)}
 				</div>
