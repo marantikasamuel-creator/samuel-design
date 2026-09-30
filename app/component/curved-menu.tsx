@@ -71,11 +71,8 @@ const CustomFooter: React.FC = () => {
 			<a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#0b5ed7] transition-colors">
 				GitHub
 			</a>
-			<a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#0b5ed7] transition-colors">
-				Dribbble
-			</a>
-			<a href="https://www.figma.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#0b5ed7] transition-colors">
-				Figma
+			<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#0b5ed7] transition-colors">
+				Instagram
 			</a>
 		</div>
 	);
@@ -120,7 +117,7 @@ const NavLink: React.FC<iNavLinkProps> = ({
 		>
 			<Link ref={ref} onMouseMove={handleMouseMove} href={href}>
 				<div className="relative flex items-start">
-					<span className="text-black transition-colors duration-500  text-4xl font-thin mr-2">
+					<span className="text-black transition-colors duration-500 text-2xl font-medium mr-2">
 						{index}.
 					</span>
 					<div className="flex flex-row gap-2">
@@ -134,7 +131,7 @@ const NavLink: React.FC<iNavLinkProps> = ({
 								staggerChildren: 0.075,
 								delayChildren: 0.25,
 							}}
-							className="relative z-10 block text-4xl font-extralight text-black transition-colors duration-500  md:text-4xl"
+							className="relative z-10 block text-2xl font-medium text-black transition-colors duration-500"
 						>
 							{heading.split("").map((letter, i) => {
 								return (
@@ -250,19 +247,20 @@ const Header: React.FC<iHeaderProps> = ({
 			<div className="relative">
 				<div
 					onClick={handleClick}
-					className="md:hidden fixed -right-1 top-0 md:-right-1 m-5 z-50 w-12 h-12 rounded-none flex items-center justify-center cursor-pointer bg-white"
+					className="md:hidden fixed right-6 top-0 h-20 z-50 flex items-center justify-center cursor-pointer bg-transparent"
 				>
-					<div className="relative w-8 h-6 flex flex-col justify-between items-center">
-						<span
-							className={`block h-1 w-7 bg-black transition-transform duration-300 ${isActive ? "rotate-45 translate-y-2" : ""}`}
-						></span>
-						<span
-							className={`block h-1 w-7 bg-black transition-opacity duration-300 ${isActive ? "opacity-0" : ""}`}
-						></span>
-						<span
-							className={`block h-1 w-7 bg-black transition-transform duration-300 ${isActive ? "-rotate-45 -translate-y-3" : ""}`}
-						></span>
-					</div>
+					{isActive ? (
+						<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M18 6L6 18" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+							<path d="M6 6L18 18" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+						</svg>
+					) : (
+						<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M4 18L20 18" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
+							<path d="M4 12L20 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
+							<path d="M4 6L20 6" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
+						</svg>
+					)}
 				</div>
 			</div>
 
