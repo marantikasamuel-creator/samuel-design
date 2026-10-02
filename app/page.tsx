@@ -970,9 +970,17 @@ export default function App() {
 
             <div className="space-y-6 pt-4">
               {/* Email */}
-              <div className="flex items-center justify-center gap-2 md:gap-4 text-xl md:text-4xl font-bold tracking-tight">
-                <Mail size={28} className="text-[#0b5ed7]/60 md:w-8 md:h-8 w-6 h-6" />
-                <TypewriterText text="marantikasamuel@gmail.com" delay={0.2} />
+              <div className="flex items-center justify-center gap-2 md:gap-4 text-sm md:text-4xl font-bold tracking-tight">
+                <a
+                  href="https://mail.google.com/mail/?view=cm&to=marantikasamuel@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 md:gap-4 group hover:opacity-80 transition-opacity"
+                  aria-label="Send email to marantikasamuel@gmail.com"
+                >
+                  <Mail size={28} className="text-[#0b5ed7]/60 md:w-8 md:h-8 w-6 h-6 flex-shrink-0 group-hover:text-[#0b5ed7] transition-colors" />
+                  <TypewriterText text="marantikasamuel@gmail.com" delay={0.2} />
+                </a>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText('marantikasamuel@gmail.com');
@@ -987,9 +995,17 @@ export default function App() {
               </div>
 
               {/* Phone */}
-              <div className="flex items-center justify-center gap-2 md:gap-4 text-xl md:text-4xl font-bold tracking-tight">
-                <WhatsApp size={28} className="text-[#0b5ed7]/60 md:w-8 md:h-8 w-6 h-6" />
-                <TypewriterText text="+62 896-8795-9233" delay={0.8} />
+              <div className="flex items-center justify-center gap-2 md:gap-4 text-sm md:text-4xl font-bold tracking-tight">
+                <a
+                  href="https://wa.me/6289687959233"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 md:gap-4 group hover:opacity-80 transition-opacity"
+                  aria-label="Chat on WhatsApp"
+                >
+                  <WhatsApp size={28} className="text-[#0b5ed7]/60 md:w-8 md:h-8 w-6 h-6 flex-shrink-0 group-hover:text-[#0b5ed7] transition-colors" />
+                  <TypewriterText text="+62 896-8795-9233" delay={0.8} />
+                </a>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText('+62896-8795-9233');
